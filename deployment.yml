@@ -1,21 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: netflix-app
-  labels:
-    app: netflix-app
+  name: sample-app
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: netflix-app
+      app: sample-app
   template:
     metadata:
       labels:
-        app: netflix-app
+        app: sample-app
     spec:
       containers:
-      - name: netflix-app
-        image: sevenajay/netflix:latest
-        ports:
-        - containerPort: 80
+        - name: app
+          image: learnk8s/knote-js:1.0.0
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MONGO_URL
+              value: mongodb://mongo:27017/dev
+          imagePullPolicy: Always
